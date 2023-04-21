@@ -1,1 +1,0 @@
-# WBARTCo-Telegram-Bot
