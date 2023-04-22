@@ -46,7 +46,7 @@ def user_pass(message):
     markup.add(telebot.types.InlineKeyboardButton('Список пользователей',
                                                   callback_data='users'))
     bot.send_message(message.chat.id, 'Пользователь зарегистрирован!',
-                                      reply_markup=markup)
+                     reply_markup=markup)
 
 
 bot.polling(none_stop=True)
