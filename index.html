@@ -38,13 +38,10 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--Axios - это HTTP-клиент, основанный на Promise для node.js и браузера. -->
-    <!-- Он изоморфный (= он может работать в браузере и node.js с той же базой кодов).  -->
-    <!-- На стороне сервера он использует нативный node.js http-модуль, тогда как на стороне клиента (браузер) он использует XMLHttpRequests. -->
-    <!-- скрипт отправки -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
     <script>
-        const TOKEN = "5890238748:AAHozlnBm9ykz0iuszEbM360X_h-DAGXhWs"; //API ТГ бота
-        const CHAT_ID = "-1001979074139"; //id чата с ботом аодмином
+        const TOKEN = "5890238748:AAHozlnBm9ykz0iuszEbM360X_h-DAGXhWs"; 
+        const CHAT_ID = "-1001979074139"; 
         const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`;
         const success = document.getElementById('success');
 
