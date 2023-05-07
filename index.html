@@ -9,7 +9,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.10.0/dist/ffmpeg.min.js"></script>
 
 </head>
 
@@ -46,34 +45,63 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.16/dist/browser-image-compression.min.js"></script>
+
+
     <script>
+        // Токен и идентификатор чата для отправки сообщений в Telegram
         const TOKEN = "5890238748:AAHozlnBm9ykz0iuszEbM360X_h-DAGXhWs";
         const CHAT_ID = "-1001979074139";
         const TEXT_URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
         const FILE_URI_API = `https://api.telegram.org/bot${TOKEN}/sendDocument`;
         const success = document.getElementById('success');
 
-        document.getElementById('tg').addEventListener('submit', function (e) {
+        // Функция для сжатия фото
+        async function compressVideo(file) {
+            const options = {
+                targetSize: 0.5,
+                maxSizeMB: 0.5,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+                maxIteration: 10
+            };
+            try {
+                const compressedFile = await imageCompression(file, options);
+                return compressedFile;
+            } catch (error) {
+                console.error('Ошибка сжатия видео:', error);
+                return file;
+            }
+        }
+
+        // Обработчик отправки формы
+        document.getElementById('tg').addEventListener('submit', async function (e) {
             e.preventDefault();
 
+            // Формирование текстового сообщения
             let message = `<b>Заявка с сайта</b>\n`;
             message += `<b>Отправитель: </b> ${this.name.value} \n`;
             message += `<b>email: </b> ${this.email.value} \n`;
             message += `<b>Номер телефона: </b> ${this.number.value} \n`;
             message += `<b>Комментарий к заказу: </b> ${this.comment.value}`;
 
+            // Создание объекта FormData для отправки данных формы
             const formData = new FormData();
             formData.append('chat_id', CHAT_ID)
 
+            // Сжатие фото и добавление его в FormData
+            const originalFile = this.document.files[0];
+            const compressedFile = await compressVideo(originalFile);
+            formData.append('document', compressedFile);
 
-            formData.append('document', this.document.files[0])
-
+            // Отправка текстового сообщения
             axios.post(TEXT_URI_API, {
                 chat_id: CHAT_ID,
                 parse_mode: 'html',
                 text: message
             })
 
+            // Отправка файла
             axios.post(FILE_URI_API, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -81,6 +109,7 @@
             })
 
                 .then((res) => {
+                    // Очистка полей формы и отображение сообщения об успехе
                     this.name.value = "";
                     this.email.value = "";
                     this.comment.value = "";
