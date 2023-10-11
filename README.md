@@ -1,8 +1,8 @@
-# TeleForm: Web-to-Telegram Form Submission
+# TelegramAlertsViaWeb: Web-to-Telegram Form Submission
 
 ## Overview
 
-TeleForm is a robust, efficient, and secure solution designed to capture and send form data from a web interface directly to a specified Telegram chat. Whether you're an individual or a business, this tool serves as an automated bridge between customer input and your Telegram dashboard. It supports text fields, email, phone number, and even file attachments.
+TeleForm is a robust, efficient solution designed to capture and send form data from a web interface directly to a specified Telegram chat. Whether you're an individual or a business, this tool serves as an automated bridge between customer input and your Telegram dashboard. It supports text fields, email, phone number, and even file attachments.
 
 ## Key Features
 
