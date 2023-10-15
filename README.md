@@ -23,9 +23,7 @@ TeleForm is a robust, efficient solution designed to capture and send form data 
 ## Quick Start
 
 1. **Clone the Repository**
-    ```bash
-    git clone https://github.com/yourusername/TeleForm.git
-    ```
+   
 
 2. **Setup Telegram Bot**
     - Create a new bot via BotFather in Telegram and get the API token.
